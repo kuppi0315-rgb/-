@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>テスト成績クエスト</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f6f7fb;--card:#fff;--text:#1f2430;--sub:#6b7280;--line:#e5e7eb;--accent:#4f6bed;--mid:#4f6bed;--fin:#f59e0b;--good:#16a34a;--bad:#dc2626;color-scheme:light}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#13151b;--card:#1c1f28;--text:#eceef3;--sub:#9aa1b0;--line:#2c303c;--accent:#7b90ff;--mid:#7b90ff;--fin:#fbbf24;--good:#4ade80;--bad:#f87171;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#13151b;--card:#1c1f28;--text:#eceef3;--sub:#9aa1b0;--line:#2c303c;--accent:#7b90ff;--mid:#7b90ff;--fin:#fbbf24;--good:#4ade80;--bad:#f87171;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,"Hiragino Sans","Noto Sans JP",system-ui,sans-serif;line-height:1.5}
+main{max-width:760px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:1.3rem;margin:0 0 14px}
+.tabs{display:flex;gap:6px;margin-bottom:14px}
+.tab{flex:1;padding:10px;border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:10px;font-size:.95rem;cursor:pointer}
+.tab.on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:14px}
+.sum{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+.sum b{display:block;font-size:1.4rem}
+.sum span{font-size:.75rem;color:var(--sub)}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:600px}
+th,td{padding:8px 4px;text-align:center;border-bottom:1px solid var(--line);font-size:.9rem}
+th{color:var(--sub);font-weight:500;font-size:.78rem}
+td:first-child,th:first-child{text-align:left;padding-left:6px}
+input{font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px;width:58px;text-align:center}
+input.name{width:100%;text-align:left}
+input.date{width:118px;font-size:.72rem;padding:3px;margin-top:4px;color:var(--sub)}
+.cd{display:block;font-size:.7rem;color:var(--sub)}.cd.soon{color:var(--bad);font-weight:600}
+.add{display:flex;gap:8px;margin-top:12px}
+.add input{flex:1;width:auto;text-align:left;padding:10px}
+button.pri{background:var(--accent);color:#fff;border:0;border-radius:8px;padding:0 16px;font-size:.95rem;cursor:pointer}
+button.del{background:none;border:0;color:var(--sub);font-size:1.1rem;cursor:pointer}
+.diff.up{color:var(--good)}.diff.down{color:var(--bad)}
+.ok{color:var(--good);font-weight:600}
+.bars{display:grid;gap:10px}
+.row{display:grid;grid-template-columns:70px 1fr;gap:8px;align-items:center;font-size:.85rem}
+.bar{height:9px;border-radius:5px;margin:2px 0;min-width:2px;transition:width .3s}
+.legend{font-size:.75rem;color:var(--sub);margin-top:8px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin:0 4px 0 8px;vertical-align:-1px}
+.empty{color:var(--sub);text-align:center;padding:18px 0;font-size:.9rem}
+:root,:root:not([data-theme="light"]),:root[data-theme="dark"]{--bg:#0b1030;--card:#16204a;--text:#f4f1de;--sub:#9fb0e8;--line:#f4f1de;--accent:#ffd23f;--mid:#4cc9f0;--fin:#ff7b54;--good:#7cfc8a;--bad:#ff5d73;color-scheme:dark}
+body{font-family:"DotGothic16","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;font-size:16px;min-height:100vh;
+background:radial-gradient(2px 2px at 20px 30px,#fff,transparent),radial-gradient(2px 2px at 90px 120px,#fffa,transparent),radial-gradient(1px 1px at 160px 60px,#fff,transparent),linear-gradient(#0b1030,#1a1f5c 60%,#2b2a6e);
+background-size:200px 160px,200px 160px,200px 160px,100% 100%;background-attachment:fixed}
+h1{text-align:center;color:var(--accent);text-shadow:3px 3px 0 #000;letter-spacing:.08em;font-size:1.4rem;margin:8px 0 22px}
+.card{border:0;border-radius:0;margin-bottom:24px;background:linear-gradient(#1f2f7a,#121a4a);box-shadow:0 0 0 3px #f4f1de,0 0 0 6px #000,6px 10px 0 6px rgba(0,0,0,.35)}
+.tab{font-family:inherit;border:3px solid #f4f1de;border-radius:0;background:#16204a;box-shadow:0 4px 0 #000;font-size:1rem}
+.tab:active{transform:translateY(3px);box-shadow:0 1px 0 #000}
+.tab.on{background:var(--accent);color:#1a1a1a;border-color:#fff}
+.tab.on::before{content:"▶ "}
+th,td{border-bottom:2px dashed #ffffff30}
+th{color:var(--accent);font-size:.85rem}
+input{font-family:inherit;border-radius:0;border:2px solid var(--sub);background:#0b1030;color:#fff}
+input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+input.date{color:var(--sub);color-scheme:dark}
+button.pri{font-family:inherit;font-weight:bold;border:3px solid #fff;border-radius:0;background:var(--accent);color:#1a1a1a;box-shadow:0 4px 0 #000}
+button.pri:active{transform:translateY(3px);box-shadow:0 1px 0 #000}
+.sum b{color:var(--accent);font-size:1.5rem;text-shadow:2px 2px 0 #000}
+.ok::after{content:" ★"}
+.row>div{background:#000;padding:3px;border:2px solid #f4f1de}
+.bar{height:12px;border-radius:0;background-image:repeating-linear-gradient(90deg,transparent 0 6px,rgba(0,0,0,.4) 6px 8px)!important}
+.legend{color:#f4f1de}.legend i{border-radius:0}
+</style>
+</head>
+<body>
+<main>
+<h1>⚔️ テスト成績クエスト ⚔️</h1>
+<div class="tabs" id="tabs"></div>
+<div class="card"><div class="sum" id="sum"></div></div>
+<div class="card">
+  <div class="scroll"><table>
+    <thead><tr><th>教科</th><th>中間</th><th>期末</th><th>平均</th><th>目標</th><th></th></tr></thead>
+    <tbody id="body"></tbody>
+  </table></div>
+  <div class="add"><input id="newName" placeholder="教科を追加（例：数学）" maxlength="20"><button class="pri" id="addBtn">追加</button></div>
+</div>
+<div class="card"><b style="font-size:1rem;color:var(--accent)">🛡 ステータス（教科別HP）</b><div class="bars" id="bars" style="margin-top:10px"></div>
+<div class="legend"><i style="background:var(--mid)"></i>中間<i style="background:var(--fin)"></i>期末</div></div>
+<div class="card"><b style="font-size:1rem;color:var(--accent)">💾 セーブデータ</b>
+<div class="add"><button class="pri" id="exp">セーブ（書き出し）</button><button class="pri" id="imp">ロード（読み込み）</button><input type="file" id="file" accept=".json,application/json" hidden></div>
+<div class="legend" id="bkmsg">成績をファイルに保存しておけます。端末を変えるときやバックアップ用にどうぞ。</div></div>
+</main>
+<script>
+const KEY="exam-manager-v1";
+let state={sem:1,subjects:[],scores:{}};
+try{const s=localStorage.getItem(KEY);if(s){const p=JSON.parse(s);if(p&&p.subjects)state=p}}catch(e){}
+if(!state.subjects.length&&!state.seeded){state.subjects=["国語","数学","英語","理科","社会"].map((n,i)=>({id:"s"+i,name:n}));state.seeded=true}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}};
+const k=(id,sem,t)=>id+"|"+sem+"|"+t;
+const get=(id,t,sem=state.sem)=>{const v=state.scores[k(id,sem,t)];return v===undefined||v===""?null:Number(v)};
+const avg=a=>{a=a.filter(v=>v!==null);return a.length?a.reduce((x,y)=>x+y,0)/a.length:null};
+const f=v=>v===null?"–":(Math.round(v*10)/10).toString();
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function dateCell(id,t){
+  const d=state.scores[k(id,state.sem,t)]||"";let cd="";
+  if(d){const n=Math.round((new Date(d+"T00:00:00")-new Date(new Date().toDateString()))/864e5);
+    if(!isNaN(n))cd=n>0?`<span class="cd ${n<=7?"soon":""}">あと${n}日</span>`:n===0?`<span class="cd soon">今日</span>`:`<span class="cd">終了</span>`}
+  return `<input type="date" class="date" data-id="${id}" data-t="${t}" value="${d}" aria-label="試験日">${cd}`}
+function render(active){
+  if(state.sem>2)state.sem=1;
+  document.getElementById("tabs").innerHTML=[1,2].map(n=>`<button class="tab ${n===state.sem?"on":""}" data-s="${n}">${n===1?"春":"秋"}学期</button>`).join("");
+  const all=[],mids=[],fins=[];
+  state.subjects.forEach(s=>{const m=get(s.id,"mid"),e=get(s.id,"fin");mids.push(m);fins.push(e);all.push(m,e)});
+  const total=(a)=>{const x=a.filter(v=>v!==null);return x.length?x.reduce((p,q)=>p+q,0):null};
+  document.getElementById("sum").innerHTML=
+    `<div><b>${f(avg(mids))}</b><span>中間の平均</span></div><div><b>${f(avg(fins))}</b><span>期末の平均</span></div><div><b>${f(total(mids))} / ${f(total(fins))}</b><span>合計（中間 / 期末）</span></div>`;
+  const body=document.getElementById("body");
+  if(!state.subjects.length){body.innerHTML=`<tr><td colspan="6" class="empty">教科を追加してください</td></tr>`}
+  else body.innerHTML=state.subjects.map(s=>{
+    const m=get(s.id,"mid"),e=get(s.id,"fin"),a=avg([m,e]),t=get(s.id,"goal");
+    const val=(x)=>x===null?"":x;
+    const reached=t!==null&&a!==null&&a>=t;
+    let diff="";if(m!==null&&e!==null){const d=e-m;diff=` <span class="diff ${d>=0?"up":"down"}">${d>=0?"▲":"▼"}${Math.abs(d)}</span>`}
+    return `<tr><td><input class="name" maxlength="20" data-rename="${s.id}" value="${esc(s.name)}" aria-label="教科名"></td>
+      <td><input type="number" min="0" max="100" inputmode="decimal" data-id="${s.id}" data-t="mid" value="${val(m)}"><br>${dateCell(s.id,"midDate")}</td>
+      <td><input type="number" min="0" max="100" inputmode="decimal" data-id="${s.id}" data-t="fin" value="${val(e)}">${diff}<br>${dateCell(s.id,"finDate")}</td>
+      <td class="${reached?"ok":""}">${f(a)}</td>
+      <td><input type="number" min="0" max="100" inputmode="decimal" data-id="${s.id}" data-t="goal" value="${val(t)}"></td>
+      <td><button class="del" data-del="${s.id}" aria-label="削除">✕</button></td></tr>`}).join("");
+  const bars=document.getElementById("bars");
+  bars.innerHTML=state.subjects.length?state.subjects.map(s=>{
+    const m=get(s.id,"mid"),e=get(s.id,"fin");
+    return `<div class="row"><span>${esc(s.name)}</span><div>
+      <div class="bar" style="width:${m||0}%;background:var(--mid)"></div>
+      <div class="bar" style="width:${e||0}%;background:var(--fin)"></div></div></div>`}).join(""):`<div class="empty">データがありません</div>`;
+}
+document.addEventListener("click",ev=>{
+  const t=ev.target;
+  if(t.dataset.s){state.sem=+t.dataset.s;save();render()}
+  if(t.dataset.del){const s=state.subjects.find(x=>x.id===t.dataset.del);if(s&&confirm(`「${s.name}」を削除しますか？（全学期の成績も消えます）`)){state.subjects=state.subjects.filter(x=>x.id!==s.id);Object.keys(state.scores).forEach(q=>{if(q.startsWith(s.id+"|"))delete state.scores[q]});save();render()}}
+});
+document.getElementById("body").addEventListener("change",ev=>{
+  const i=ev.target;
+  if(i.dataset.rename){const s=state.subjects.find(x=>x.id===i.dataset.rename);const n=i.value.trim();if(s&&n)s.name=n;save();render();return}
+  if(!i.dataset.id)return;
+  let v=i.value;if(v!==""&&!i.dataset.t.endsWith("Date")){v=Math.max(0,Math.min(100,Number(v)))}
+  state.scores[k(i.dataset.id,state.sem,i.dataset.t)]=v;save();render();
+});
+function add(){const inp=document.getElementById("newName");const n=inp.value.trim();if(!n)return;
+  state.subjects.push({id:"s"+Date.now(),name:n});inp.value="";save();render()}
+document.getElementById("addBtn").onclick=add;
+document.getElementById("newName").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.isComposing)add()});
+const msg=t=>{document.getElementById("bkmsg").textContent=t};
+let dl=null;
+try{if(window.claude&&claude.use)claude.use("downloads").then(d=>{dl=d;if(!d)document.getElementById("exp").hidden=true}).catch(()=>{document.getElementById("exp").hidden=true})}catch(e){}
+document.getElementById("exp").onclick=async()=>{
+  if(!dl){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify({app:"exam-manager",v:1,state})],{type:"application/json"}));a.download="exam-save.json";a.click();return msg("セーブしました！")}
+  const d=new Date(),p=n=>String(n).padStart(2,"0");
+  try{await dl.save({filename:`exam-save-${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}.json`,data:JSON.stringify({app:"exam-manager",v:1,state})});msg("セーブしました！")}
+  catch(e){msg(e&&e.code==="declined"?"キャンセルしました":"セーブできませんでした")}};
+document.getElementById("imp").onclick=()=>document.getElementById("file").click();
+document.getElementById("file").onchange=e=>{
+  const f=e.target.files[0];if(!f)return;const r=new FileReader();
+  r.onload=()=>{try{const j=JSON.parse(r.result);const s=j.state||j;
+    if(!s||!Array.isArray(s.subjects)||typeof s.scores!=="object")throw 0;
+    if(!confirm("今のデータを上書きしてロードしますか？"))return;
+    state={sem:s.sem===2?2:1,subjects:s.subjects.map(x=>({id:String(x.id),name:String(x.name).slice(0,20)})),scores:s.scores,seeded:true};
+    save();render();msg("ロードしました！")}catch(x){msg("読み込めないファイルです")}};
+  r.readAsText(f);e.target.value=""};
+render();
+</script>
+</body>
+</html>
